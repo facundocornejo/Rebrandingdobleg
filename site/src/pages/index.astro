@@ -1,8 +1,11 @@
 ---
-// Placeholder page for the phase 1 gate: it exists to prove the token layer
-// compiles and that utilities are generated from the brand palette.
+// Placeholder page for the phase 1/2 gates: it proves the token layer compiles
+// and that the data layer derives links instead of hardcoding them.
 // Phase 4 replaces this with the real layout and components.
 import '../styles/global.css';
+import { site, whatsappUrl, openingHours } from '../data/site';
+import { products, quoteMessage } from '../data/products';
+import { faqs } from '../data/faqs';
 ---
 
 <html lang="es-AR">
@@ -10,22 +13,41 @@ import '../styles/global.css';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>Dobleg Premoldeados</title>
+    <title>{site.title}</title>
+    <meta name="description" content={site.description} />
   </head>
   <body>
     <main class="container-page py-section">
-      <p class="text-kicker uppercase text-text-muted">Paraná, Entre Ríos · Más de 23 años</p>
+      <p class="text-kicker uppercase text-text-muted">
+        {site.address.locality}, {site.address.region} · Más de {site.claims.yearsExperience} años
+      </p>
       <h1 class="mt-sm">Premoldeados de hormigón armado en Entre Ríos</h1>
       <p class="measure mt-lg text-text-muted">
-        Andamio temporal de la fase 1. Los tokens de color, tipografía, espaciado,
-        radios y sombras ya están cargados.
+        Andamio temporal. Tokens cargados y datos derivados desde <code>site.ts</code>.
       </p>
+
       <a
         class="mt-xl inline-block rounded-btn bg-cta px-lg py-sm font-semibold text-white shadow-sm hover:bg-cta-hover"
-        href="#"
+        href={whatsappUrl('Hola! Quiero cotizar un premoldeado')}
       >
-        Cotizar por WhatsApp
+        Cotizar por WhatsApp — {site.whatsapp.display}
       </a>
+
+      <ul class="mt-xl space-y-xs">
+        {
+          products.map((product) => (
+            <li>
+              <a href={whatsappUrl(quoteMessage(product))}>{product.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul class="mt-xl space-y-xs text-text-muted">
+        {openingHours.map((slot) => <li>{slot.label}: {slot.opens} a {slot.closes}</li>)}
+      </ul>
+
+      <p class="mt-xl text-text-muted">{faqs.length} preguntas frecuentes cargadas.</p>
     </main>
   </body>
 </html>

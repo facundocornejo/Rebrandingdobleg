@@ -157,6 +157,78 @@ concordancia). Los `alt` son provisionales — se confirman contra la foto real 
    Ningún `alt` repite el patrón "imagen de" ni apila keywords.
 5. **`objectPosition` queda vacío** en esta tabla: sale de la curaduría 3A.
 
+## FAQ — borrador para aprobación (spec §2.5 punto 6)
+
+Seis preguntas, todas trazables a contenido ya publicado. **Ningún claim nuevo.**
+Misma fuente que el `FAQPage` del JSON-LD (spec §5).
+
+Hallazgo: `corregidoMo/index.html` ya trae un `FAQPage` en JSON-LD (líneas 168–199)
+con **tres preguntas ya redactadas y aprobadas** que hoy son invisibles para el usuario
+— solo las lee Google. Las tres se migran **textuales** y pasan a ser visibles.
+
+### 1. ¿Cuánto tardan en fabricar y entregar?
+
+> El premoldeado es un 50% más rápido que la construcción tradicional: un galpón de
+> 2,5 × 5 m está listo en un día y medio. Los plazos de fabricación están optimizados
+> y el montaje se planifica en obra.
+
+Fuente: línea 330 («50% Más rápido»), 331 («Un galpón 2.5x5m listo en día y medio»),
+826 («Plazos de fabricación optimizados»), 178 («tiempos optimizados y planificación en obra»).
+
+### 2. ¿En qué zonas trabajan?
+
+> Atendemos principalmente Entre Ríos y zonas cercanas. Estamos en Paraná.
+> Consultanos por logística a otras provincias.
+
+Fuente: **JSON-LD línea 194, textual**. Se agrega «Estamos en Paraná» (JSON-LD `addressLocality`, línea 99).
+
+### 3. ¿El montaje está incluido?
+
+> Sí. El montaje lo realiza nuestro equipo profesional, con tiempos optimizados y
+> planificación en obra.
+
+Fuente: **JSON-LD línea 178, textual**. Refuerza el beneficio publicado «Montaje Incluido ·
+Instalación profesional garantizada» (832–833) y el claim aprobado en spec §0.5.
+
+### 4. ¿Trabajan medidas y diseños personalizados?
+
+> Adaptamos cada proyecto a las medidas y prestaciones que necesitás, manteniendo
+> normas de calidad y seguridad. Incluye diseño personalizado y asesoramiento técnico.
+
+Fuente: **JSON-LD línea 186, textual**. Refuerza «100% Adaptable · A tus medidas y
+necesidades exactas» (364–366) y «diseño personalizado, asesoramiento técnico» (973).
+
+### 5. ¿Cuánto dura una estructura de hormigón premoldeado?
+
+> Fabricamos en hormigón armado con materiales de primera calidad: son estructuras de
+> vida útil prolongada, resistentes a la intemperie y a las condiciones climáticas adversas.
+
+Fuente: 569 («Vida útil prolongada»), 682 («Resistentes a la intemperie»),
+709 («gran resistencia a las condiciones climáticas adversas»),
+973 («materiales de primera calidad»), 497/744 («máxima durabilidad»).
+
+### 6. ¿Cómo pido un presupuesto?
+
+> Escribinos por WhatsApp al +54 9 343 4806295 contándonos qué necesitás y las medidas
+> aproximadas, o completá el formulario. Te pasamos un presupuesto cerrado, sin sorpresas.
+> Atendemos de lunes a viernes de 8 a 18 y los sábados de 8 a 13.
+
+Fuente: 1035 (teléfono/WhatsApp), 379 («Presupuesto cerrado sin sorpresas»),
+JSON-LD 105–106 (horarios).
+
+### Desvío respecto de la spec §2.5
+
+La spec pide los temas: plazos, cobertura, montaje, **pagos**, durabilidad, cómo cotizar.
+
+**«Pagos» no se puede responder desde la fuente.** Búsqueda sobre todo `index.html`
+(`pago|financ|cuota|transferencia|efectivo|anticipo|seña|tarjeta|garantía`): cero
+resultados sobre formas de pago, financiación o plazo de garantía. «Garantizada» aparece
+solo como adjetivo publicitario, y una de las dos veces dentro de un bloque comentado (818).
+
+Reemplazo propuesto: **«¿Trabajan medidas y diseños personalizados?»** (pregunta 4), que
+ya está escrita y aprobada en el JSON-LD de producción. Si el cliente quiere la de pagos,
+tiene que aportar él la información.
+
 ## Verificación (evidencia)
 
 ```
