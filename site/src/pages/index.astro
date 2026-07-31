@@ -1,11 +1,16 @@
 ---
-// Placeholder page for the phase 1/2 gates: it proves the token layer compiles
-// and that the data layer derives links instead of hardcoding them.
-// Phase 4 replaces this with the real layout and components.
+// Placeholder page for the phase 1/2/3B gates. It proves the token layer
+// compiles, that links are derived from site.ts, and that the image pipeline
+// emits the expected derivatives. Phase 4 replaces this with the real layout.
+import { Image, Picture } from 'astro:assets';
+
 import '../styles/global.css';
 import { site, whatsappUrl, openingHours } from '../data/site';
 import { products, quoteMessage } from '../data/products';
 import { faqs } from '../data/faqs';
+import heroImg from '../assets/hero-galpon-obra.webp';
+import whyUsImg from '../assets/galpon-campo-entre-rios.webp';
+import logoImg from '../assets/logo-dobleg.webp';
 ---
 
 <html lang="es-AR">
@@ -15,16 +20,30 @@ import { faqs } from '../data/faqs';
     <meta name="generator" content={Astro.generator} />
     <title>{site.title}</title>
     <meta name="description" content={site.description} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
+    <Image src={logoImg} alt={site.name} widths={[180, 360]} sizes="180px" loading="eager" />
+
+    <Picture
+      src={heroImg}
+      alt="Galpón de hormigón premoldeado con portón abierto, construido por Dobleg en Entre Ríos"
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
+      widths={[640, 960, 1280]}
+      width={1280}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+
     <main class="container-page py-section">
       <p class="text-kicker uppercase text-text-muted">
         {site.address.locality}, {site.address.region} · Más de {site.claims.yearsExperience} años
       </p>
       <h1 class="mt-sm">Premoldeados de hormigón armado en Entre Ríos</h1>
-      <p class="measure mt-lg text-text-muted">
-        Andamio temporal. Tokens cargados y datos derivados desde <code>site.ts</code>.
-      </p>
 
       <a
         class="mt-xl inline-block rounded-btn bg-cta px-lg py-sm font-semibold text-white shadow-sm hover:bg-cta-hover"
@@ -33,15 +52,34 @@ import { faqs } from '../data/faqs';
         Cotizar por WhatsApp — {site.whatsapp.display}
       </a>
 
-      <ul class="mt-xl space-y-xs">
+      <ul class="mt-xl space-y-lg">
         {
           products.map((product) => (
             <li>
+              <Image
+                src={product.image}
+                alt={product.imageAlt}
+                widths={[400, 800]}
+                width={800}
+                sizes="(min-width: 64rem) 400px, 100vw"
+                loading="lazy"
+                decoding="async"
+                style={product.objectPosition ? `object-position: ${product.objectPosition}` : undefined}
+              />
               <a href={whatsappUrl(quoteMessage(product))}>{product.title}</a>
             </li>
           ))
         }
       </ul>
+
+      <Image
+        src={whyUsImg}
+        alt="Galpón de hormigón premoldeado en un campo de Entre Ríos con maquinaria agrícola"
+        widths={[400, 800]}
+        width={800}
+        sizes="(min-width: 64rem) 400px, 100vw"
+        loading="lazy"
+      />
 
       <ul class="mt-xl space-y-xs text-text-muted">
         {openingHours.map((slot) => <li>{slot.label}: {slot.opens} a {slot.closes}</li>)}
