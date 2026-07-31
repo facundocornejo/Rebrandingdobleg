@@ -22,7 +22,7 @@
 
 | Decisión | Valor |
 |---|---|
-| Stack | Astro 5 + Tailwind CSS 4 (`@tailwindcss/vite`) + `@astrojs/sitemap`. Estático puro, sin framework cliente |
+| Stack | **Astro 7** + Tailwind CSS 4 (`@tailwindcss/vite`) + `@astrojs/sitemap`. Estático puro, sin framework cliente. *(Corregido el 31/07/2026 con aprobación de Facu: la spec decía "Astro 5", pero el `latest` del registro es 7.1.6 y el dist-tag `legacy` es 4.16.19 — Astro 5 quedó dos majors atrás. `@astrojs/sitemap` 3.7.3 no declara peer sobre `astro`, y todo lo que usa esta spec son APIs estables de `astro:assets`.)* |
 | Estructura | Single-page con anclas (`/#galpones`); `products.ts` con slugs para futura iteración multi-page |
 | Repo | `https://github.com/facundocornejo/Rebrandingdobleg.git`; `corregidoMo/` NO se commitea |
 | Formulario | Formspree se MANTIENE (`https://formspree.io/f/xldlnvwa`) — requisito duro |
