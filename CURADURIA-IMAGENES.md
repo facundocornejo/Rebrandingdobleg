@@ -220,6 +220,27 @@ sin uso), `piletas.webp` y `piscina.webp` (idénticos entre sí, piscina en obra
 del producto 01), `galpon.webp` (galpón oscuro y manchado, sin uso asignado),
 `logo.webp` (duplicado del logo).
 
+## Imágenes generadas por IA — aprobadas por Facu (31/07/2026)
+
+El bloqueo de la spec §4 se levanta **solo** para estas dos, por decisión explícita de Facu.
+Se documentan acá para que quede trazable qué es foto real y qué no.
+
+| Producto | Archivo fuente | Reemplaza a |
+|---|---|---|
+| 02 · tambos | `imagenes-generadas/tambo-lecheria-concepto-ia-v2-forma-real.png` | la foto real editada |
+| 06 · bateas | `imagenes-generadas/batea-comedero-concepto-ia-v2-forma-real.png` | la foto real editada |
+
+Ambas 1448×1086 (4:3 nativo), convertidas a WebP q92 y copiadas a `site/src/assets/` con
+los mismos nombres SEO. Respetan la geometría real del sistema de paneles Dobleg: el tambo
+conserva el techo curvo y los portones corredizos; la batea conserva la tapa del flotante,
+la artesa y las patas de apoyo, y resuelve la reserva anotada más arriba (en la foto real
+la batea quedaba pegada al borde inferior).
+
+**Riesgo asentado:** son fotorrealistas y ocupan el lugar de obra entregada en el catálogo.
+Un comprador las va a leer como trabajo real. **7 de las 9 fotos de producto siguen siendo
+reales.** Cuando el cliente aporte material propio de tambos y bateas, se reemplazan sin
+tocar nada más que el archivo.
+
 ## Bloqueado — no se toca
 
 `imagenes-generadas/galpon-industrial-retoque-v1.png` y `galpon3-retoque-ambiental-v1.png`
