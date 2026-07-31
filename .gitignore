@@ -1,0 +1,23 @@
+# Legacy site (read-only reference, never versioned)
+corregidoMo/
+
+# Local tooling metadata
+.atl/
+
+# AI-retouched image candidates (pending approval, gate 3A)
+imagenes-generadas/
+
+# Astro project
+site/node_modules/
+site/dist/
+site/.astro/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
