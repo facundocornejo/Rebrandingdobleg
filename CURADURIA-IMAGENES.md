@@ -226,6 +226,56 @@ del producto 01), `galpon.webp` (galpón oscuro y manchado, sin uso asignado),
 (retoques por IA, 1448×1086). La spec §4 los mantiene **bloqueados** hasta aprobación
 explícita. No los evalué ni los propongo.
 
+---
+
+## Resolución del gate (31/07/2026, verificada en disco)
+
+Codex ejecutó el brief. **Originales intactos**: los 21 archivos de `corregidoMo/img/`
+conservan peso y dimensiones idénticos al inventario previo.
+
+| Edición | Resultado | Estado |
+|---|---|---|
+| 1 · tambos | `tambo-lecheria-hormigon.webp` 920×690, 4:3. Arena eliminada; el tambo ahora llena el cuadro. Mejor que el original. | ✅ aprobada |
+| 2 · bebederos | Cancelada por decisión de Facu: se conserva `tanquebebederoo.webp` sin tocar (las vacas tomando pesan más que la calidad). | ✅ resuelta |
+| 3 · batea | `batea-comedero-hormigon.webp` 880×660, 4:3. Sombra del fotógrafo eliminada. | ✅ aprobada, con reserva (ver abajo) |
+| 4 · cerramiento | Codex no pudo. Verificado de forma independiente: la ruina de ladrillo arranca en x≈870, así que **ningún recorte 4:3 que la excluya llega a 800 px de ancho**. El recorte que sí la saca convierte la foto en una textura de hormigón sin contexto. | ⚠️ ver decisión |
+| 5 · piscina | El retoque (camino B) dejaba unión visible y Codex lo descartó bien. Se ejecutó el camino A, que estaba pre-aprobado en el brief: `piscina-hormigon-premoldeada.webp` 800×600, 4:3, sombra eliminada. | ✅ aprobada |
+| 6 · logo | `logo-dobleg.webp` 4 KB y `logo-dobleg-claro.webp` 13 KB, ambos 600×188 con alfa real; `marca-gg.png` 512×512 RGBA. Compuestos sobre `--teal-800` y `--concrete-50` reales: **sin halo blanco**. | ✅ aprobada |
+
+**No existe original vectorial del logo.**
+
+### Reserva sobre la batea (no bloquea)
+
+El recorte cumple: sombra fuera, 4:3, 880 px. Pero la batea quedó pegada al borde inferior y
+el campo vacío ocupa el 70% del cuadro — como card de producto, el producto es lo más chico
+de la foto. Probé un encuadre cerrado (640×480) donde la batea SÍ es el sujeto, pero 640 px
+no alcanza para el escalón de 800 del pipeline y habría que upscalear, cosa que la spec
+prohíbe. **Se queda el de 880×660.** Si el cliente aporta una foto mejor de bateas, se cambia.
+
+### Decisión abierta: cerramientos
+
+Ninguna edición salva esta foto. Tres caminos:
+
+1. **Usarla tal cual, con la ruina.** Es honesta: muro nuevo al lado de una construcción
+   vieja. Se banca. Es la opción recomendada para no bloquear la v1.
+2. **Usar el recorte cerrado** (770×577): limpio pero no comunica «cerramiento perimetral»,
+   y queda bajo el escalón de 800.
+3. **Pedirle al cliente una foto de cerramientos.** Es la solución real, pero bloquea.
+
+Recomiendo la 1 y sumar «foto de cerramientos» al pedido de material que ya está previsto
+para la iteración post-v1.
+
+### Decisión abierta: `favicon.svg`
+
+La spec §5 pide `favicon.svg`, pero sin vector no se puede generar bien desde un WebP de
+colores planos. Recrear la marca a mano sería inventar tipografía. Propuesta: **bajar el
+`favicon.svg`** y publicar `favicon.ico` (32px) + `apple-touch-icon.png` (180px) +
+`favicon-96.png`, todos derivados de `marca-gg.png`. Es un set de favicons completo y
+estándar; el SVG es un lujo, no un requisito. Si el cliente aparece con el vector, se suma
+después sin tocar nada más.
+
+---
+
 ## Derivados a generar en Fase 3B (no son copias)
 
 - `public/favicon.svg`, `public/favicon.ico` (32px), `public/apple-touch-icon.png` (180px)
