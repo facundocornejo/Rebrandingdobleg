@@ -4,6 +4,9 @@ corregidoMo/
 # Local tooling metadata
 .atl/
 
+# Photo working area (edits pending approval, gate 3A)
+fotos-editadas/
+
 # AI-retouched image candidates (pending approval, gate 3A)
 imagenes-generadas/
 
