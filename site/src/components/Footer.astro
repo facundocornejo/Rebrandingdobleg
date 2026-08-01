@@ -86,9 +86,11 @@ const links = [
     padding-block: var(--spacing-2xs);
   }
 
+  /* No colour change on hover: pure white is not allowed on teal-800 and the
+     links are already at the brightest tone that is. The underline carries the
+     affordance on its own. */
   .footer__nav a:hover,
   .footer__social a:hover {
-    color: var(--color-white);
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }

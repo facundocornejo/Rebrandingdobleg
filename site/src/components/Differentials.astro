@@ -54,7 +54,7 @@ const stats = [
     line-height: 1;
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
-    color: var(--color-white);
+    color: var(--color-on-brand-deep);
   }
 
   .stat__unit {
@@ -68,12 +68,14 @@ const stats = [
     margin-top: var(--spacing-2xs);
     font-size: 1.125rem;
     font-weight: 650;
-    color: var(--color-white);
+    color: var(--color-on-brand-deep);
   }
 
+  /* Number and label share the bright tone, so the supporting line has to give
+     way for the hierarchy to survive. Same move as the footer credit. */
   .stat__detail {
     margin-top: var(--spacing-xs);
-    color: var(--color-on-brand-deep);
+    color: var(--color-on-brand-deep-muted);
     max-width: 32ch;
   }
 
