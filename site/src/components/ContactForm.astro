@@ -1,0 +1,230 @@
+---
+import { site, whatsappUrl } from '../data/site';
+import { products } from '../data/products';
+import Icon from './icons/Icon.astro';
+---
+
+{/* Native POST first. With JavaScript off this still submits and Formspree
+    shows its own confirmation page; the script below only improves it. */}
+<form
+  class="form"
+  action={site.formEndpoint}
+  method="POST"
+  data-contact-form
+  data-whatsapp={site.whatsapp.number}
+>
+  <div class="form__row">
+    <label class="field">
+      <span class="field__label">Nombre <abbr title="obligatorio">*</abbr></span>
+      <input class="field__input" type="text" name="nombre" required autocomplete="name" />
+    </label>
+
+    <label class="field">
+      <span class="field__label">Teléfono o WhatsApp <abbr title="obligatorio">*</abbr></span>
+      <input class="field__input" type="tel" name="telefono" required autocomplete="tel" inputmode="tel" />
+    </label>
+  </div>
+
+  <label class="field">
+    <span class="field__label">Email <span class="field__hint">(opcional)</span></span>
+    <input class="field__input" type="email" name="email" autocomplete="email" />
+  </label>
+
+  <label class="field">
+    <span class="field__label">Producto de interés</span>
+    <select class="field__input" name="producto">
+      {products.map((product) => <option value={product.title}>{product.title}</option>)}
+      <option value="Otro">Otro</option>
+    </select>
+  </label>
+
+  <label class="field">
+    <span class="field__label">Mensaje <abbr title="obligatorio">*</abbr></span>
+    <textarea
+      class="field__input"
+      name="mensaje"
+      rows="4"
+      required
+      placeholder="Contanos qué necesitás y, si las tenés, las medidas aproximadas."></textarea>
+  </label>
+
+  {/* Honeypot: real people never see it, bots fill it in. */}
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="form__gotcha" />
+
+  <button class="btn btn--cta btn--lg form__submit" type="submit" data-form-submit>
+    <span class="form__spinner" aria-hidden="true"></span>
+    Enviar consulta
+  </button>
+
+  <p class="form__status" data-form-status role="status" aria-live="polite" hidden></p>
+
+  <div class="form__fallback" data-form-fallback hidden>
+    <p>Tus datos siguen cargados. Podés mandarlos directo por WhatsApp:</p>
+    <a class="btn btn--ghost" href={whatsappUrl()} data-form-fallback-link>
+      <Icon name="whatsapp" size={20} />
+      Enviar por WhatsApp
+    </a>
+  </div>
+</form>
+
+<div class="form__done" data-form-done tabindex="-1" hidden>
+  <p class="form__done-title">Recibimos tu consulta.</p>
+  <p>Te respondemos a la brevedad en el horario de atención.</p>
+  <a class="form__done-link" href={whatsappUrl('Hola! Te escribo por una consulta urgente')}>
+    ¿Urgente? Escribinos por WhatsApp
+  </a>
+</div>
+
+<style>
+  .form {
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .form__row {
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--spacing-2xs);
+  }
+
+  .field__label {
+    font-size: var(--text-ui);
+    font-weight: 600;
+  }
+
+  .field__label abbr {
+    color: var(--color-error-600);
+    text-decoration: none;
+  }
+
+  .field__hint {
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .field__input {
+    width: 100%;
+    /* 44px minimum touch target. */
+    min-height: 44px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    color: var(--color-text);
+    font: inherit;
+  }
+
+  textarea.field__input {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .field__input:focus-visible {
+    border-color: var(--color-brand);
+  }
+
+  /* Invalid state carries a border AND the browser's message; never colour
+     alone. :user-invalid means it only fires after the user has interacted. */
+  .field__input:user-invalid {
+    border-color: var(--color-error-600);
+  }
+
+  .form__gotcha {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .form__submit {
+    margin-top: var(--spacing-xs);
+  }
+
+  .form__submit[disabled] {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+
+  .form__spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid oklch(96% 0.015 200 / 0.45);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: form-spin 700ms linear infinite;
+  }
+
+  .is-sending .form__spinner {
+    display: block;
+  }
+
+  @keyframes form-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .form__status {
+    font-size: var(--text-ui);
+    font-weight: 600;
+  }
+
+  .form__status[data-tone='error'] {
+    color: var(--color-error-600);
+  }
+
+  .form__status[data-tone='info'] {
+    color: var(--color-text-muted);
+  }
+
+  .form__fallback {
+    display: grid;
+    gap: var(--spacing-sm);
+    justify-items: start;
+    padding: var(--spacing-md);
+    background-color: var(--color-concrete-100);
+    border-radius: var(--radius-card);
+    font-size: var(--text-ui);
+  }
+
+  .form__done {
+    padding: var(--spacing-xl);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form__done-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-stretch: 110%;
+  }
+
+  .form__done p + p {
+    margin-top: var(--spacing-xs);
+    color: var(--color-text-muted);
+  }
+
+  .form__done-link {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    font-weight: 600;
+    color: var(--color-brand);
+  }
+
+  @media (min-width: 40rem) {
+    .form__row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

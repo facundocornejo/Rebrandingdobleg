@@ -1,0 +1,113 @@
+---
+import { faqs } from '../data/faqs';
+---
+
+<section class="faq" id="preguntas">
+  <div class="container-page faq__inner">
+    <header data-reveal>
+      <p class="kicker">Preguntas frecuentes</p>
+      <h2>Lo que más nos consultan</h2>
+    </header>
+
+    <div class="faq__list" data-reveal>
+      {
+        faqs.map((faq) => (
+          <details class="faq__item" name="faq">
+            <summary>
+              {faq.question}
+              <span class="faq__marker" aria-hidden="true" />
+            </summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding-block: var(--spacing-section);
+  }
+
+  .faq__inner {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+
+  .faq__list {
+    display: grid;
+    gap: 0;
+  }
+
+  /* Hairlines rather than boxes: the list reads as one block. */
+  .faq__item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    /* Comfortably past the 44px touch target. */
+    padding-block: var(--spacing-lg);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary:hover {
+    color: var(--color-brand);
+  }
+
+  /* Plus turning into a minus. Two rules, no icon file. */
+  .faq__marker {
+    position: relative;
+    flex: none;
+    width: 14px;
+    height: 14px;
+    color: var(--color-brand);
+  }
+
+  .faq__marker::before,
+  .faq__marker::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 2px;
+    background-color: currentColor;
+    transition: transform 200ms ease-out;
+  }
+
+  .faq__marker::after {
+    transform: rotate(90deg);
+  }
+
+  .faq__item[open] .faq__marker::after {
+    transform: rotate(0deg);
+  }
+
+  .faq__item p {
+    padding-bottom: var(--spacing-lg);
+    max-width: 68ch;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 64rem) {
+    .faq__inner {
+      grid-template-columns: 20rem 1fr;
+      column-gap: var(--spacing-3xl);
+      align-items: start;
+    }
+  }
+</style>

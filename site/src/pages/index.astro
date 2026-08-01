@@ -1,91 +1,26 @@
 ---
-// Placeholder page for the phase 1/2/3B gates. It proves the token layer
-// compiles, that links are derived from site.ts, and that the image pipeline
-// emits the expected derivatives. Phase 4 replaces this with the real layout.
-import { Image, Picture } from 'astro:assets';
-
-import '../styles/global.css';
-import { site, whatsappUrl, openingHours } from '../data/site';
-import { products, quoteMessage } from '../data/products';
-import { faqs } from '../data/faqs';
-import heroImg from '../assets/hero-galpon-obra.webp';
-import whyUsImg from '../assets/galpon-campo-entre-rios.webp';
-import logoImg from '../assets/logo-dobleg.webp';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Differentials from '../components/Differentials.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Faq from '../components/Faq.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
 ---
 
-<html lang="es-AR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{site.title}</title>
-    <meta name="description" content={site.description} />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  </head>
-  <body>
-    <Image src={logoImg} alt={site.name} widths={[180, 360]} sizes="180px" loading="eager" />
-
-    <Picture
-      src={heroImg}
-      alt="Galpón de hormigón premoldeado con portón abierto, construido por Dobleg en Entre Ríos"
-      formats={['avif', 'webp']}
-      fallbackFormat="webp"
-      widths={[640, 960, 1280]}
-      width={1280}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
-
-    <main class="container-page py-section">
-      <p class="text-kicker uppercase text-text-muted">
-        {site.address.locality}, {site.address.region} · Más de {site.claims.yearsExperience} años
-      </p>
-      <h1 class="mt-sm">Premoldeados de hormigón armado en Entre Ríos</h1>
-
-      <a
-        class="mt-xl inline-block rounded-btn bg-cta px-lg py-sm font-semibold text-white shadow-sm hover:bg-cta-hover"
-        href={whatsappUrl('Hola! Quiero cotizar un premoldeado')}
-      >
-        Cotizar por WhatsApp — {site.whatsapp.display}
-      </a>
-
-      <ul class="mt-xl space-y-lg">
-        {
-          products.map((product) => (
-            <li>
-              <Image
-                src={product.image}
-                alt={product.imageAlt}
-                widths={[400, 800]}
-                width={800}
-                sizes="(min-width: 64rem) 400px, 100vw"
-                loading="lazy"
-                decoding="async"
-                style={product.objectPosition ? `object-position: ${product.objectPosition}` : undefined}
-              />
-              <a href={whatsappUrl(quoteMessage(product))}>{product.title}</a>
-            </li>
-          ))
-        }
-      </ul>
-
-      <Image
-        src={whyUsImg}
-        alt="Galpón de hormigón premoldeado en un campo de Entre Ríos con maquinaria agrícola"
-        widths={[400, 800]}
-        width={800}
-        sizes="(min-width: 64rem) 400px, 100vw"
-        loading="lazy"
-      />
-
-      <ul class="mt-xl space-y-xs text-text-muted">
-        {openingHours.map((slot) => <li>{slot.label}: {slot.opens} a {slot.closes}</li>)}
-      </ul>
-
-      <p class="mt-xl text-text-muted">{faqs.length} preguntas frecuentes cargadas.</p>
-    </main>
-  </body>
-</html>
+<Layout>
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <Differentials />
+    <ProductGrid />
+    <WhyUs />
+    <Faq />
+    <ContactSection />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Layout>

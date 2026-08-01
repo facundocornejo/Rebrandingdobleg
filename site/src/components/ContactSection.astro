@@ -1,0 +1,144 @@
+---
+import { site, whatsappUrl, openingHours } from '../data/site';
+import ContactForm from './ContactForm.astro';
+import Icon from './icons/Icon.astro';
+---
+
+<section class="contact" id="contacto">
+  <div class="container-page contact__grid">
+    <div class="contact__channels" data-reveal>
+      <p class="kicker">Contacto</p>
+      <h2>Hablemos de tu proyecto</h2>
+      <p class="contact__lead measure">
+        Contanos qué necesitás y te pasamos un presupuesto cerrado. La vía más rápida es
+        WhatsApp.
+      </p>
+
+      <a class="btn btn--cta btn--lg contact__wa" href={whatsappUrl('Hola! Quiero hacer una consulta')}>
+        <Icon name="whatsapp" size={22} />
+        Escribinos por WhatsApp
+      </a>
+
+      {/* No "Label: value" rows — a phone number looks like a phone number. */}
+      <ul class="contact__list">
+        <li>
+          <Icon name="phone" size={20} />
+          <a href={site.whatsapp.tel}>{site.whatsapp.display}</a>
+        </li>
+        <li>
+          <Icon name="mail" size={20} />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <Icon name="map-pin" size={20} />
+          <span>{site.address.locality}, {site.address.region}</span>
+        </li>
+        <li>
+          <Icon name="clock" size={20} />
+          <span>
+            {
+              openingHours.map((slot, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {slot.label} de {slot.opens.replace(':00', '')} a {slot.closes.replace(':00', '')}
+                </>
+              ))
+            }
+          </span>
+        </li>
+      </ul>
+
+      <div class="contact__social">
+        <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram de Dobleg Premoldeados">
+          <Icon name="instagram" size={22} />
+        </a>
+        <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook de Dobleg Premoldeados">
+          <Icon name="facebook" size={22} />
+        </a>
+      </div>
+    </div>
+
+    <div class="contact__form" data-reveal>
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background-color: var(--color-concrete-100);
+    padding-block: var(--spacing-section);
+  }
+
+  .contact__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+
+  .contact__lead {
+    margin-top: var(--spacing-md);
+    color: var(--color-text-muted);
+  }
+
+  .contact__wa {
+    margin-top: var(--spacing-lg);
+  }
+
+  .contact__list {
+    margin-top: var(--spacing-xl);
+    display: grid;
+    gap: var(--spacing-md);
+    list-style: none;
+  }
+
+  .contact__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .contact__list :global(svg) {
+    flex: none;
+    margin-top: 0.15em;
+    color: var(--color-brand);
+  }
+
+  .contact__list a {
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .contact__list a:hover {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .contact__social {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .contact__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-btn);
+    color: var(--color-brand);
+  }
+
+  .contact__social a:hover {
+    background-color: var(--color-teal-100);
+  }
+
+  @media (min-width: 64rem) {
+    .contact__grid {
+      grid-template-columns: 1fr 1.1fr;
+      column-gap: var(--spacing-3xl);
+      align-items: start;
+    }
+  }
+</style>

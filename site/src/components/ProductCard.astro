@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+
+import { whatsappUrl } from '../data/site';
+import { quoteMessage, type Product } from '../data/products';
+import Icon from './icons/Icon.astro';
+
+interface Props {
+  product: Product;
+  /** 1-based position, rendered as the 01–09 chip. */
+  index: number;
+}
+
+const { product, index } = Astro.props;
+const featured = Boolean(product.featured);
+const number = String(index).padStart(2, '0');
+---
+
+<article
+  class:list={['card', featured && 'card--featured']}
+  id={product.slug}
+  data-reveal
+>
+  <div class="card__media">
+    <Image
+      src={product.image}
+      alt={product.imageAlt}
+      widths={featured ? [640, 960] : [400, 800]}
+      width={featured ? 960 : 800}
+      sizes={featured ? '(min-width: 64rem) 60vw, 100vw' : '(min-width: 64rem) 22rem, 100vw'}
+      loading="lazy"
+      decoding="async"
+      style={product.objectPosition ? `object-position: ${product.objectPosition}` : undefined}
+    />
+  </div>
+
+  <div class="card__body">
+    <p class="card__chip">{number}</p>
+    <h3 class="card__title">{product.title}</h3>
+    <p class="card__desc">{product.shortDesc}</p>
+
+    <ul class="card__features">
+      {
+        product.features.map((feature) => (
+          <li>
+            <Icon name="check" size={18} />
+            {feature}
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      class:list={['btn', featured ? 'btn--cta' : 'btn--ghost']}
+      href={whatsappUrl(quoteMessage(product))}
+    >
+      <Icon name="whatsapp" size={20} />
+      Cotizar {featured ? 'galpones' : 'por WhatsApp'}
+    </a>
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    scroll-margin-top: 6rem;
+  }
+
+  .card__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-concrete-100);
+  }
+
+  .card :global(.card__media img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    /* Nested radius: the button sits inside 20px of padding. */
+    padding: var(--spacing-lg);
+    flex: 1;
+  }
+
+  .card__chip {
+    font-size: var(--text-kicker);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-brand);
+  }
+
+  .card__title {
+    margin-top: var(--spacing-2xs);
+  }
+
+  .card__desc {
+    margin-top: var(--spacing-xs);
+    color: var(--color-text-muted);
+  }
+
+  .card__features {
+    margin-top: var(--spacing-md);
+    display: grid;
+    gap: var(--spacing-xs);
+    list-style: none;
+  }
+
+  .card__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+    font-size: var(--text-ui);
+    color: var(--color-text);
+  }
+
+  .card__features :global(svg) {
+    flex: none;
+    margin-top: 0.15em;
+    color: var(--color-brand);
+  }
+
+  .card__body .btn {
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+  }
+
+  /* Hover lift only where there is a pointer: on touch it just flickers. */
+  @media (hover: hover) and (min-width: 64rem) {
+    .card {
+      transition:
+        box-shadow 200ms ease-out,
+        transform 200ms ease-out;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .card--featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .card--featured .card__media {
+      flex: 0 0 60%;
+      aspect-ratio: auto;
+    }
+
+    .card--featured .card__body {
+      flex: 1;
+      justify-content: center;
+      padding: var(--spacing-2xl);
+    }
+
+    .card--featured .card__desc {
+      font-size: 1.0625rem;
+    }
+
+    /* The body is vertically centred here, so pushing the button to the bottom
+       would open a hole between it and the feature list. */
+    .card--featured .card__body .btn {
+      margin-top: 0;
+      align-self: start;
+      padding-inline: var(--spacing-xl);
+    }
+  }
+</style>

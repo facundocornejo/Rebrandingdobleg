@@ -1,0 +1,57 @@
+---
+import { products } from '../data/products';
+import ProductCard from './ProductCard.astro';
+---
+
+<section class="catalogue" id="productos">
+  <div class="container-page">
+    <header class="catalogue__header" data-reveal>
+      <p class="kicker">Catálogo</p>
+      <h2>Nuestros productos</h2>
+      <p class="catalogue__lead measure">
+        Nueve líneas de hormigón armado premoldeado. Todas se adaptan a tus medidas.
+      </p>
+    </header>
+
+    <div class="catalogue__grid">
+      {products.map((product, i) => <ProductCard product={product} index={i + 1} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .catalogue {
+    padding-block: var(--spacing-section);
+  }
+
+  .catalogue__header {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .catalogue__lead {
+    margin-top: var(--spacing-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Explicit column counts instead of auto-fit: the featured card spans the
+     full row, and auto-fit leaves it stranded with a hole beside it at
+     in-between widths. */
+  .catalogue__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 48rem) {
+    .catalogue__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .catalogue__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-xl);
+    }
+  }
+</style>

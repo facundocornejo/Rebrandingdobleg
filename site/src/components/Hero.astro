@@ -1,0 +1,170 @@
+---
+import { Picture } from 'astro:assets';
+
+import { site, whatsappUrl } from '../data/site';
+import hero from '../assets/hero-galpon-obra.webp';
+import Icon from './icons/Icon.astro';
+---
+
+<section class="hero" id="inicio">
+  <Picture
+    class="hero__media"
+    src={hero}
+    alt="Galpón de hormigón premoldeado con portón abierto, construido por Dobleg en Entre Ríos"
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    widths={[640, 960, 1280]}
+    width={1280}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+
+  <div class="container-page hero__inner">
+    <div class="hero__content">
+      <p class="hero__kicker">
+        {site.address.locality}, {site.address.region} · Más de {site.claims.yearsExperience} años
+      </p>
+      <h1 class="hero__title">Premoldeados de hormigón armado en Entre Ríos</h1>
+      <p class="hero__lead">Tu proyecto, nuestra estructura de calidad.</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--cta btn--lg" href={whatsappUrl('Hola! Quiero cotizar un premoldeado')}>
+          <Icon name="whatsapp" size={22} />
+          Cotizar por WhatsApp
+        </a>
+        <a class="hero__secondary" href="#productos">
+          Ver catálogo
+          <Icon name="arrow-down" size={18} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(82svh, 44rem);
+    background-color: var(--color-brand-deep);
+  }
+
+  .hero :global(.hero__media),
+  .hero :global(.hero__media img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    z-index: -2;
+  }
+
+  /* Scrim: dark enough at the bottom for AA text, gone by mid-frame so the
+     photo still reads as the photo. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to top,
+      oklch(36% 0.06 208 / 0.92) 0%,
+      oklch(36% 0.06 208 / 0.78) 28%,
+      oklch(36% 0.06 208 / 0.3) 55%,
+      oklch(36% 0.06 208 / 0) 78%
+    );
+  }
+
+  .hero__inner {
+    padding-block: var(--spacing-3xl) var(--spacing-2xl);
+  }
+
+  .hero__content {
+    max-width: 36rem;
+  }
+
+  .hero__kicker,
+  .hero__title,
+  .hero__lead,
+  .hero__actions {
+    /* One-shot entrance, staggered. Never runs again. */
+    animation: hero-rise 620ms var(--ease-out-soft) both;
+  }
+
+  .hero__title {
+    animation-delay: 60ms;
+  }
+  .hero__lead {
+    animation-delay: 120ms;
+  }
+  .hero__actions {
+    animation-delay: 180ms;
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .hero__kicker {
+    font-size: var(--text-kicker);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-on-brand-deep);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero__title {
+    color: var(--color-white);
+    text-shadow: 0 1px 2px oklch(24% 0.02 220 / 0.35);
+  }
+
+  .hero__lead {
+    margin-top: var(--spacing-md);
+    font-size: 1.125rem;
+    color: var(--color-on-brand-deep);
+    max-width: 34ch;
+  }
+
+  .hero__actions {
+    margin-top: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .hero__secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--color-on-brand-deep);
+    text-decoration: none;
+  }
+
+  .hero__secondary:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  @media (min-width: 40rem) {
+    .hero__actions {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+  }
+</style>

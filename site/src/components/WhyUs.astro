@@ -1,0 +1,188 @@
+---
+import { Image } from 'astro:assets';
+
+import { site } from '../data/site';
+import whyUs from '../assets/galpon-campo-entre-rios.webp';
+import Icon from './icons/Icon.astro';
+import type { IconName } from './icons/Icon.astro';
+
+const benefits: { icon: IconName; title: string; detail: string }[] = [
+  { icon: 'clock', title: 'Entrega rápida', detail: 'Plazos de fabricación optimizados.' },
+  { icon: 'wrench', title: 'Montaje incluido', detail: 'Instalación profesional garantizada.' },
+  { icon: 'chat', title: 'Asesoramiento', detail: 'Consultoría técnica personalizada.' },
+  { icon: 'receipt', title: 'Presupuesto cerrado', detail: 'Sin sorpresas a mitad de obra.' },
+];
+---
+
+<section class="whyus" id="nosotros">
+  <div class="container-page whyus__grid">
+    <div class="whyus__text" data-reveal>
+      <p class="kicker">Por qué elegirnos</p>
+      <h2>Hacemos premoldeados desde hace {site.claims.yearsExperience} años</h2>
+
+      <p class="whyus__lead measure">
+        Somos especialistas en la fabricación de estructuras de hormigón armado premoldeado,
+        en Entre Ríos, para toda la región. Combinamos tecnología con mano de obra
+        especializada para dar soluciones rápidas, robustas y económicamente viables.
+      </p>
+      <p class="whyus__body measure">
+        El servicio es integral: diseño personalizado, asesoramiento técnico, fabricación con
+        materiales de primera calidad y montaje profesional.
+      </p>
+
+      <p class="whyus__stats">
+        <strong>{site.claims.yearsExperience}+</strong> años de experiencia
+        <span aria-hidden="true">·</span>
+        <strong>{site.claims.projectsDone}+</strong> proyectos realizados
+      </p>
+    </div>
+
+    <figure class="whyus__figure" data-reveal>
+      <Image
+        src={whyUs}
+        alt="Galpón de hormigón premoldeado en un campo de Entre Ríos con maquinaria agrícola"
+        widths={[480, 960]}
+        width={960}
+        sizes="(min-width: 64rem) 30rem, 100vw"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+
+    <ul class="whyus__benefits" data-reveal>
+      {
+        benefits.map((benefit) => (
+          <li>
+            <Icon name={benefit.icon} size={26} />
+            <div>
+              <p class="whyus__benefit-title">{benefit.title}</p>
+              <p class="whyus__benefit-detail">{benefit.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .whyus {
+    background-color: var(--color-concrete-100);
+    padding-block: var(--spacing-section);
+  }
+
+  /* Mobile order is text -> photo -> benefits; desktop puts the photo in its
+     own column beside the copy. */
+  .whyus__grid {
+    display: grid;
+    gap: var(--spacing-2xl);
+  }
+
+  .whyus__lead {
+    margin-top: var(--spacing-md);
+    font-size: 1.125rem;
+  }
+
+  .whyus__body {
+    margin-top: var(--spacing-md);
+    color: var(--color-text-muted);
+  }
+
+  .whyus__stats {
+    margin-top: var(--spacing-lg);
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+  }
+
+  .whyus__stats strong {
+    font-weight: 800;
+    font-stretch: 110%;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.5rem;
+    color: var(--color-brand);
+  }
+
+  .whyus__stats span {
+    margin-inline: var(--spacing-xs);
+    color: var(--color-concrete-200);
+  }
+
+  .whyus__figure {
+    margin: 0;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .whyus__figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .whyus__benefits {
+    display: grid;
+    gap: var(--spacing-lg);
+    list-style: none;
+  }
+
+  .whyus__benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .whyus__benefits :global(svg) {
+    flex: none;
+    color: var(--color-brand);
+  }
+
+  .whyus__benefit-title {
+    font-weight: 650;
+  }
+
+  .whyus__benefit-detail {
+    margin-top: 0.1rem;
+    font-size: var(--text-ui);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 40rem) {
+    .whyus__benefits {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-xl);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .whyus__grid {
+      grid-template-columns: 1.15fr 1fr;
+      align-items: start;
+      column-gap: var(--spacing-3xl);
+    }
+
+    .whyus__text {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .whyus__figure {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: stretch;
+    }
+
+    .whyus__figure :global(img) {
+      height: 100%;
+      object-fit: cover;
+      /* The column is taller than the photo is tall, so cover crops the sides
+         and would otherwise centre on the grass. Bias up to the building. */
+      object-position: center 38%;
+    }
+
+    .whyus__benefits {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+</style>

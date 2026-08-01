@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+
+import { site } from '../data/site';
+import logoLight from '../assets/logo-dobleg-claro.webp';
+import Icon from './icons/Icon.astro';
+
+const year = new Date().getFullYear();
+
+const links = [
+  { href: '#productos', label: 'Productos' },
+  { href: '#nosotros', label: 'Nosotros' },
+  { href: '#preguntas', label: 'Preguntas' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<footer class="footer">
+  <div class="container-page footer__grid">
+    <div class="footer__brand">
+      <Image src={logoLight} alt={site.name} widths={[200, 400]} width={200} sizes="150px" loading="lazy" />
+      <p class="footer__tagline">
+        Estructuras de hormigón armado premoldeado en {`${site.address.locality}, ${site.address.region}`}.
+      </p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Navegación del pie">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="footer__social">
+      <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram de Dobleg Premoldeados">
+        <Icon name="instagram" size={22} />
+      </a>
+      <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook de Dobleg Premoldeados">
+        <Icon name="facebook" size={22} />
+      </a>
+    </div>
+  </div>
+
+  <div class="container-page footer__legal">
+    <p>© {year} {site.name}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-brand-deep);
+    color: var(--color-on-brand-deep);
+    padding-block: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  .footer__brand :global(img) {
+    width: 150px;
+    height: auto;
+  }
+
+  .footer__tagline {
+    margin-top: var(--spacing-md);
+    max-width: 34ch;
+  }
+
+  .footer__nav {
+    display: grid;
+    gap: var(--spacing-sm);
+    align-content: start;
+  }
+
+  .footer__nav a,
+  .footer__social a {
+    color: var(--color-on-brand-deep);
+    text-decoration: none;
+  }
+
+  .footer__nav a {
+    font-weight: 500;
+    padding-block: var(--spacing-2xs);
+  }
+
+  .footer__nav a:hover,
+  .footer__social a:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .footer__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-btn);
+  }
+
+  .footer__legal {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid oklch(96% 0.015 200 / 0.18);
+    font-size: var(--text-ui);
+  }
+
+  @media (min-width: 48rem) {
+    .footer__grid {
+      grid-template-columns: 1.6fr 1fr auto;
+      column-gap: var(--spacing-2xl);
+    }
+  }
+</style>

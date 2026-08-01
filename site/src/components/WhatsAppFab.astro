@@ -1,0 +1,46 @@
+---
+import { whatsappUrl } from '../data/site';
+import Icon from './icons/Icon.astro';
+---
+
+{/* Hidden once #contacto is on screen — down there the same action already
+    exists and this would just cover content. Handled in Layout's script. */}
+<a
+  class="fab"
+  href={whatsappUrl('Hola! Quiero hacer una consulta')}
+  aria-label="Escribinos por WhatsApp"
+  data-fab
+>
+  <Icon name="whatsapp" size={28} />
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: clamp(1rem, 4vw, 2rem);
+    bottom: clamp(1rem, 4vw, 2rem);
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-cta);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+    transition:
+      opacity 200ms ease-out,
+      transform 200ms ease-out,
+      background-color 150ms ease-out;
+  }
+
+  .fab:hover {
+    background-color: var(--color-cta-hover);
+  }
+
+  .fab.is-hidden {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+    pointer-events: none;
+  }
+</style>

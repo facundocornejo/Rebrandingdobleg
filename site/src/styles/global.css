@@ -68,7 +68,9 @@
   --color-concrete-900: oklch(24% 0.02 220); /* primary text — 15.3:1 */
 
   /* Brand teal. */
-  --color-teal-100: oklch(93% 0.025 200);
+  /* 95% and not the original 93%: as the hover background of the ghost button
+     it has to clear 4.5:1 against teal-600, and 93% measured 4.35:1. */
+  --color-teal-100: oklch(95% 0.025 200);
   --color-teal-600: oklch(52% 0.085 202); /* 4.9:1 — AA large / UI only */
   --color-teal-800: oklch(36% 0.06 208); /* dark surfaces */
   --color-teal-light: oklch(96% 0.015 200); /* text on teal-800 — 9.5:1 */
@@ -202,6 +204,121 @@
   [disabled],
   .is-disabled {
     cursor: not-allowed;
+  }
+}
+
+@layer components {
+  /* Buttons. Green is reserved for actions that open WhatsApp; everything else
+     is the ghost variant. There is no third variant on purpose. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    /* Never below the 44px touch target. */
+    min-height: 44px;
+    padding-inline: var(--spacing-lg);
+    border-radius: var(--radius-btn);
+    font-weight: 650;
+    line-height: 1.2;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease-out,
+      border-color 150ms ease-out,
+      color 150ms ease-out;
+  }
+
+  .btn--cta {
+    background-color: var(--color-cta);
+    color: var(--color-white);
+    border: 1px solid transparent;
+  }
+
+  .btn--cta:hover {
+    background-color: var(--color-cta-hover);
+  }
+
+  .btn--ghost {
+    background-color: transparent;
+    color: var(--color-brand);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--color-brand);
+    background-color: var(--color-teal-100);
+  }
+
+  .btn--sm {
+    min-height: 40px;
+    padding-inline: var(--spacing-md);
+    font-size: var(--text-ui);
+  }
+
+  .btn--lg {
+    min-height: 52px;
+    padding-inline: var(--spacing-xl);
+    font-size: 1.0625rem;
+  }
+
+  /* Full width on phones: a CTA the thumb cannot miss. */
+  @media (max-width: 39.999rem) {
+    .btn--lg {
+      width: 100%;
+    }
+  }
+
+  /* Section eyebrow. */
+  .kicker {
+    font-size: var(--text-kicker);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  /* Keyboard users get to skip the header. Visible only when focused. */
+  .skip-link {
+    position: absolute;
+    left: var(--spacing-md);
+    top: -100%;
+    z-index: 100;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-radius: var(--radius-btn);
+    box-shadow: var(--shadow-md);
+    font-weight: 600;
+  }
+
+  .skip-link:focus-visible {
+    top: var(--spacing-md);
+  }
+}
+
+/* Scroll reveal. The default is the hidden state, so the observer only ever
+   adds a class; `prefers-reduced-motion` opts out entirely. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 450ms ease-out,
+    transform 450ms ease-out;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

@@ -1,0 +1,100 @@
+---
+import { site } from '../data/site';
+
+const { claims } = site;
+
+const stats = [
+  { value: claims.fasterPct, label: 'más rápido', detail: claims.fasterDetail, lead: true },
+  { value: claims.cheaperPct, label: 'más económico', detail: claims.cheaperDetail },
+  { value: claims.adaptablePct, label: 'adaptable', detail: claims.adaptableDetail },
+];
+---
+
+{/* The reveal goes on the grid, not the section: fading the section would fade
+    its dark background too, and the band would flash light on the way in. */}
+<section class="differentials">
+  <div class="container-page differentials__grid" data-reveal>
+    {
+      stats.map((stat) => (
+        <div class:list={['stat', stat.lead && 'stat--lead']}>
+          <p class="stat__value">
+            {stat.value}<span class="stat__unit">%</span>
+          </p>
+          <p class="stat__label">{stat.label}</p>
+          <p class="stat__detail">{stat.detail}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .differentials {
+    background-color: var(--color-brand-deep);
+    color: var(--color-on-brand-deep);
+    padding-block: var(--spacing-2xl);
+  }
+
+  .differentials__grid {
+    display: grid;
+    gap: 0;
+  }
+
+  /* Mobile: stacked, separated by a hairline rather than boxes. */
+  .stat + .stat {
+    border-top: 1px solid oklch(96% 0.015 200 / 0.18);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+  }
+
+  .stat__value {
+    font-size: var(--text-stat);
+    font-weight: 800;
+    font-stretch: 120%;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-white);
+  }
+
+  .stat__unit {
+    font-size: 0.45em;
+    font-weight: 700;
+    margin-left: 0.08em;
+    vertical-align: baseline;
+  }
+
+  .stat__label {
+    margin-top: var(--spacing-2xs);
+    font-size: 1.125rem;
+    font-weight: 650;
+    color: var(--color-white);
+  }
+
+  .stat__detail {
+    margin-top: var(--spacing-xs);
+    color: var(--color-on-brand-deep);
+    max-width: 32ch;
+  }
+
+  @media (min-width: 48rem) {
+    /* Asymmetric on purpose: the speed claim is the one that closes deals, so
+       it gets the wider column and a bigger number. */
+    .differentials__grid {
+      grid-template-columns: 1.35fr 1fr 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    .stat + .stat {
+      border-top: 0;
+      border-left: 1px solid oklch(96% 0.015 200 / 0.18);
+      margin-top: 0;
+      padding-top: 0;
+      padding-left: var(--spacing-xl);
+    }
+
+    .stat--lead .stat__value {
+      font-size: calc(var(--text-stat) * 1.25);
+    }
+  }
+</style>
