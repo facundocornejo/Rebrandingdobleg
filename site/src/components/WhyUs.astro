@@ -107,8 +107,12 @@ const benefits: { icon: IconName; title: string; detail: string }[] = [
     color: var(--color-concrete-200);
   }
 
+  /* Same frame as the product cards: hairline plus shadow. The photo is the
+     only element in this section that isn't type, so it needs the same edge
+     the cards have or it reads as pasted onto the band. */
   .whyus__figure {
     margin: 0;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
