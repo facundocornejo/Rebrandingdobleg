@@ -11,7 +11,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "check:contrast": "node scripts/check-contrast.mjs",
-    "check:seo": "node scripts/check-seo.mjs"
+    "check:seo": "node scripts/check-seo.mjs",
+    "check:form": "node scripts/check-form.mjs",
+    "check:nojs": "node scripts/check-nojs.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "fontkit": "^2.0.4",
+    "lighthouse": "^13.4.1",
     "typescript": "^6.0.3"
   }
 }
