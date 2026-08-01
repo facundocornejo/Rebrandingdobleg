@@ -11,6 +11,11 @@ const { title = site.title, description = site.description } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
 const ogImage = new URL('/og-cover.jpg', Astro.site ?? site.url).href;
+
+// Cloudflare Web Analytics. The token only exists once the site is created in
+// the dashboard (phase 7), so until then the beacon is simply not rendered —
+// no cookies, no consent banner either way.
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
 <!doctype html>
@@ -166,5 +171,16 @@ const ogImage = new URL('/og-cover.jpg', Astro.site ?? site.url).href;
         });
       }
     </script>
+
+    {
+      beaconToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${beaconToken}"}`}
+        />
+      )
+    }
   </body>
 </html>

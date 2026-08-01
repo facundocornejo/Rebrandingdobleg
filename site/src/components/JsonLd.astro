@@ -1,0 +1,72 @@
+---
+/**
+ * Structured data, generated from the same modules the page renders, so the
+ * markup and the semantics can never drift apart.
+ *
+ * No rich-result promises here — what Google shows is Google's call. The point
+ * is that the data is correct and matches what a visitor actually sees.
+ */
+import { site, openingHours } from '../data/site';
+import { products } from '../data/products';
+import { faqs } from '../data/faqs';
+
+const base = site.url;
+
+const localBusiness = {
+  '@type': 'LocalBusiness',
+  '@id': `${base}/#negocio`,
+  name: site.name,
+  description: site.description,
+  url: `${base}/`,
+  image: `${base}/og-cover.jpg`,
+  logo: `${base}/apple-touch-icon.png`,
+  telephone: `+${site.whatsapp.number}`,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    addressCountry: site.address.country,
+  },
+  areaServed: { '@type': 'AdministrativeArea', name: site.areaServed },
+  openingHoursSpecification: openingHours.map((slot) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: slot.days,
+    opens: slot.opens,
+    closes: slot.closes,
+  })),
+  sameAs: [site.social.instagram, site.social.facebook],
+};
+
+const itemList = {
+  '@type': 'ItemList',
+  name: 'Catálogo de productos',
+  itemListElement: products.map((product, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: product.title,
+    // Every one of these anchors exists on the page.
+    url: `${base}/#${product.slug}`,
+  })),
+};
+
+const faqPage = {
+  '@type': 'FAQPage',
+  '@id': `${base}/#preguntas`,
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [localBusiness, itemList, faqPage],
+};
+
+// Escape `<` so a stray "</script>" in content could never close the block.
+const json = JSON.stringify(graph).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" is:inline set:html={json} />

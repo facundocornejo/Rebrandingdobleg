@@ -1,0 +1,8 @@
+# Same-site path redirects only.
+#
+# Empty on purpose: the site is a single page with anchors, so there are no old
+# paths to forward yet.
+#
+# Host-level redirects (apex -> www, *.pages.dev -> canonical) must NOT go here:
+# Cloudflare Pages does not support cross-hostname rules in _redirects. Those are
+# zone Redirect Rules and Bulk Redirects, set up in phase 8.
