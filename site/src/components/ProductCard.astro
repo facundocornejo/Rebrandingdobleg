@@ -110,6 +110,10 @@ const number = String(index).padStart(2, '0');
 
   .card__features {
     margin-top: var(--spacing-md);
+    /* Guarantees a minimum gap before the button. The button's `margin-top:
+       auto` then absorbs whatever space is left over, so buttons still line up
+       across a row of cards. Flex margins don't collapse, so both apply. */
+    margin-bottom: var(--spacing-lg);
     display: grid;
     gap: var(--spacing-xs);
     list-style: none;
@@ -129,9 +133,10 @@ const number = String(index).padStart(2, '0');
     color: var(--color-brand);
   }
 
+  /* Pushed to the bottom of the card with margin, never padding: padding here
+     would grow the button itself and shove its label off centre. */
   .card__body .btn {
     margin-top: auto;
-    padding-top: var(--spacing-lg);
   }
 
   /* Hover lift only where there is a pointer: on touch it just flickers. */
