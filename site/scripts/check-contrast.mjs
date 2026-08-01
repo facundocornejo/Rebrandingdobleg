@@ -29,7 +29,7 @@ const ratio = (a, b) => {
 
 const T = {
   'concrete-50': oklchToRgb(0.975, 0.004, 210),
-  'concrete-100': oklchToRgb(0.945, 0.006, 210),
+  'concrete-100': oklchToRgb(0.91, 0.008, 210),
   'concrete-500': oklchToRgb(0.46, 0.018, 215),
   'concrete-900': oklchToRgb(0.24, 0.02, 220),
   'teal-100': oklchToRgb(0.95, 0.025, 200),
@@ -59,6 +59,7 @@ const PAIRS = [
   ['CTA verde hover', 'white', 'wa-700', 4.5],
   ['Boton fantasma (texto teal sobre card)', 'teal-600', 'surface', 4.5],
   ['Boton fantasma hover (sobre teal-100)', 'teal-600', 'teal-100', 4.5],
+  ['Iconos sociales sobre su superficie', 'teal-600', 'surface', 3.0],
   ['Texto sobre banda oscura', 'teal-light', 'teal-800', 4.5],
   ['Numeros de la banda oscura', 'teal-light', 'teal-800', 4.5],
   ['Detalle atenuado de la banda oscura', 'on-dark-muted', 'teal-800', 4.5],

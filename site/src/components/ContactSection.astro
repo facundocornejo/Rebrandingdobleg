@@ -121,6 +121,9 @@ import Icon from './icons/Icon.astro';
     gap: var(--spacing-xs);
   }
 
+  /* On the grey band a bare icon disappears. Giving it the same surface and
+     hairline as the ghost button makes it read as something you can tap, and
+     lifts it off the background instead of relying on the icon colour alone. */
   .contact__social a {
     display: grid;
     place-items: center;
@@ -128,10 +131,16 @@ import Icon from './icons/Icon.astro';
     height: 44px;
     border-radius: var(--radius-btn);
     color: var(--color-brand);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    transition:
+      border-color 150ms ease-out,
+      background-color 150ms ease-out;
   }
 
   .contact__social a:hover {
     background-color: var(--color-teal-100);
+    border-color: var(--color-brand);
   }
 
   @media (min-width: 64rem) {
