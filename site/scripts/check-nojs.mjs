@@ -71,6 +71,6 @@ try {
   check('nada queda invisible tras scrollear', withJs.invisible === 0, `${withJs.invisible} invisible(s)`);
 } finally {
   await browser.disconnect();
-  try { await chrome.kill(); } catch { /* EPERM de limpieza en Windows */ }
+  try { chrome.kill(); } catch { /* EPERM de limpieza en Windows */ }
 }
 process.exit(fails === 0 ? 0 : 1);

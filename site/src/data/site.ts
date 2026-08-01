@@ -89,6 +89,12 @@ export const site = {
   /** Formspree endpoint for the contact form. */
   formEndpoint: 'https://formspree.io/f/xldlnvwa',
 
+  /** Studio credit in the footer. */
+  author: {
+    name: 'Facundo Cornejo',
+    url: 'https://fromdevdiego.com/',
+  },
+
   /** Claims approved by the client. Migrated verbatim from the legacy site. */
   claims: {
     fasterPct: 50,

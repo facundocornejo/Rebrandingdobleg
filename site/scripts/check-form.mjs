@@ -117,7 +117,7 @@ try {
     // On Windows chrome-launcher throws EPERM wiping its own temp profile.
     // That is cleanup noise, never a test result — it must not decide the exit
     // code of a gate script.
-    await chrome.kill();
+    chrome.kill();
   } catch {
     /* ignored on purpose */
   }
