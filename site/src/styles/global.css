@@ -66,7 +66,10 @@
      1.10x away from the page background — invisible as a band. 91% reads as a
      real section and still keeps muted text at 5.43:1. */
   --color-concrete-100: oklch(91% 0.008 210); /* alternating section */
-  --color-concrete-200: oklch(90% 0.008 210); /* borders, dividers */
+  /* 86% and not 90%: at 90% a hairline sat at 1.25:1 against the page, right
+     at the edge of perceptible. 86% puts every divider and border near 1.4:1,
+     which reads without shouting. */
+  --color-concrete-200: oklch(86% 0.01 210); /* borders, dividers */
   --color-concrete-500: oklch(46% 0.018 215); /* secondary text — 6.6:1 on -50 */
   --color-concrete-900: oklch(24% 0.02 220); /* primary text — 15.3:1 */
 
