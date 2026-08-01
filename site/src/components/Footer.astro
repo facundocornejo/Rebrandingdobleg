@@ -115,23 +115,27 @@ const links = [
     flex-wrap: wrap;
     justify-content: space-between;
     gap: var(--spacing-xs) var(--spacing-lg);
+    /* The whole legal row is tertiary, so it recedes... */
+    color: var(--color-on-brand-deep-muted);
   }
 
-  /* Tertiary line: it should be findable, not compete with the footer nav. */
+  /* ...which is exactly what lets the name stand out without shouting: it is
+     the brightest thing in the row, 2x the luminance of the text beside it. */
   .footer__credit a {
     color: var(--color-on-brand-deep);
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: underline;
-    text-decoration-color: oklch(96% 0.015 200 / 0.4);
-    text-underline-offset: 0.2em;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
     transition:
-      color 150ms ease-out,
-      text-decoration-color 150ms ease-out;
+      text-decoration-thickness 150ms ease-out,
+      text-underline-offset 150ms ease-out;
   }
 
   .footer__credit a:hover {
-    color: var(--color-white);
-    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.16em;
   }
 
   @media (min-width: 48rem) {

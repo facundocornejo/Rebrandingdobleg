@@ -36,6 +36,7 @@ const T = {
   'teal-600': oklchToRgb(0.52, 0.085, 202),
   'teal-800': oklchToRgb(0.36, 0.06, 208),
   'teal-light': oklchToRgb(0.96, 0.015, 200),
+  'on-dark-muted': oklchToRgb(0.75, 0.03, 205),
   'wa-600': oklchToRgb(0.53, 0.14, 152),
   'wa-700': oklchToRgb(0.46, 0.13, 152),
   'error-600': oklchToRgb(0.5, 0.19, 28),
@@ -61,6 +62,8 @@ const PAIRS = [
   ['Texto sobre banda oscura', 'teal-light', 'teal-800', 4.5],
   ['Numeros blancos sobre banda oscura', 'white', 'teal-800', 4.5],
   ['Footer: texto sobre teal-800', 'teal-light', 'teal-800', 4.5],
+  ['Footer: linea legal atenuada', 'on-dark-muted', 'teal-800', 4.5],
+  ['Footer: nombre del desarrollador', 'teal-light', 'teal-800', 4.5],
   ['Mensaje de error', 'error-600', 'concrete-50', 4.5],
   ['Mensaje de error sobre card', 'error-600', 'surface', 4.5],
 ];

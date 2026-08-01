@@ -90,6 +90,10 @@
   --color-brand: var(--color-teal-600);
   --color-brand-deep: var(--color-teal-800);
   --color-on-brand-deep: var(--color-teal-light);
+  /* Secondary text on the dark band. A hand-picked tone of the same hue, not
+     teal-light at lower opacity: opacity on a coloured background reads as
+     disabled and lets the background bleed through. 4.82:1 on teal-800. */
+  --color-on-brand-deep-muted: oklch(75% 0.03 205);
   --color-cta: var(--color-wa-600);
   --color-cta-hover: var(--color-wa-700);
 
