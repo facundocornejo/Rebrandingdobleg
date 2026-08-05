@@ -75,9 +75,18 @@ v=DKIM1; g=*; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGJf4oXUa4jxk
 5. La `google-site-verification` existente se copia tal cual (verificación vieja de
    Search Console — no se pierde la propiedad).
 
-## Pendiente para cerrar el gate 1
+## Cruce contra el panel de DonWeb: GATE 1 CERRADO ✅ (05/08/2026)
 
-- [ ] **Export desde el panel de DonWeb (lo hace Facu — requiere login).** La consulta
-      externa no puede ver subdominios que no se conocen de antemano: si en el panel
-      hay algún registro con un nombre no estándar, solo aparece ahí. Comparar el
-      panel 1:1 contra este documento y anotar cualquier diferencia acá.
+Facu copió la Zona DNS completa desde el panel de DonWeb. Resultado del cruce 1:1:
+
+- **Los 19 registros del panel coinciden exactamente** con este inventario (tipos,
+  nombres, valores, TTL 14400 salvo la google-site-verification con 3600, prioridades
+  MX 0/20). **No existe ningún registro adicional** con nombre no estándar.
+- **DKIM verificado por script**: la clave del panel es idéntica carácter por carácter
+  a la relevada desde afuera.
+- **Nameservers**: el panel muestra `ns1.donweb.com` / `ns2.donweb.com`; la delegación
+  externa muestra `ns3.hostmar.com` / `ns4.hostmar.com`. Son los MISMOS servidores con
+  dos nombres: `ns1.donweb.com` = `ns3.hostmar.com` = `200.58.112.193`, y
+  `ns2.donweb.com` = `ns4.hostmar.com` = `200.58.112.101` (verificado por resolución
+  externa). Para el rollback sirve cualquiera de los dos pares; en el panel se
+  restaurarían como `ns1/ns2.donweb.com`.
