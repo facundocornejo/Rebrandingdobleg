@@ -56,6 +56,24 @@ Consultados y **NO existen**: `webmail`, `smtp`, `pop`, `pop3`, `imap`, `cpanel`
 v=DKIM1; g=*; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGJf4oXUa4jxkE46prRe5WkicfJnbBfGl9/Rm95GWshiU8ANeKzHAevMLm1CDxLAAgarag9NnwWvAB9UHJ1QPR6Sy0cPc9BFcPNcFjqFWnDI8OSMNKgLJj5VnO4tHuhq7VFTiXHXw8S/wa3+dzauN+5Mcbjrpz51BW0vtoUPaO6cQgcwlThZr1vD0NP/yGTi6XC9x5ln6BaIjaICDFEKWGz9W7KSiKrQyHhqTq1k9jFEp6C2zZJPhoDwpLxHXm0O0b/AVxM7roRZZcCYQWRr2wPkypOT5tYU7fJxLsaJtQHlk+h8FYZd6FLNr+PH9L10S/cZKvihMUA4hY/wODYkwwIDAQAB
 ```
 
+## Paso 2 — Zona creada en Cloudflare ✅ (05/08/2026)
+
+Zona `doblegpremoldeados.com.ar` creada en Cloudflare Free, estado pendiente de NS.
+Export BIND en `zona-cloudflare.txt..txt`, verificado por script contra este inventario:
+16 registros idénticos, DKIM concatenado byte a byte igual, SPF exacto, MX 0/20,
+y los 10 registros proxiables en **DNS only** (cero proxied).
+
+Desvíos intencionales (documentados en el análisis de abajo):
+- `autodiscover` y `autoconfig` → CNAME a `mail.doblegpremoldeados.com.ar` (antes apex).
+- NS/SOA propios de Cloudflare (no se copian).
+
+**Nameservers asignados por Cloudflare** (para cargar en DonWeb en el paso 3):
+
+```
+arushi.ns.cloudflare.com
+odin.ns.cloudflare.com
+```
+
 ## Análisis crítico para la migración
 
 1. **El mail del cliente vive en el MISMO hosting de DonWeb** (`mail.` apunta a
