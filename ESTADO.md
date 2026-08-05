@@ -1,6 +1,6 @@
 # Estado del proyecto
 
-> Última actualización: 01/08/2026. **Leer esto primero al retomar.**
+> Última actualización: 05/08/2026. **Leer esto primero al retomar.**
 
 ## Dónde está todo
 
@@ -42,15 +42,30 @@ prueba 2 del form   15/15 OK contra pages.dev
 Lighthouse mobile (contra `astro preview`): **99 / 100 / 100 / 100**.
 LCP 2,2 s · CLS 0,011 · TBT 0 ms · 344 KB en 9 requests · cero terceros.
 
-## Lo que sigue: Fase 8 — DNS
+## Fase 8 — DNS: EN CURSO (pasos 1-3 hechos el 05/08/2026)
 
-**Es sesión aparte y no se hace apurado.** Es el único paso con riesgo real: si se hace
-mal, se cae el mail del cliente. Los 8 pasos y sus gates están en la spec §8.
+Todo el detalle en `INVENTARIO-DNS.md`. Estado al cerrar la sesión:
 
-**El primer paso, antes de tocar nada:** inventariar TODOS los registros DNS actuales en
-DonWeb (A, AAAA, CNAME, MX, TXT/SPF/DKIM, CAA, subdominios), verificarlos con `dig` desde
-afuera, y anotar los nameservers actuales para poder volver atrás. Si hay DNSSEC activo,
-desactivarlo ANTES de migrar los NS.
+- **Paso 1 (inventario): CERRADO.** 19 registros relevados desde afuera (DoH doble
+  fuente) y cruzados 1:1 contra el panel de DonWeb. Sin DNSSEC. DKIM verificado por
+  script. Rollback: `ns1/ns2.donweb.com` (= `ns3/ns4.hostmar.com`, mismas IPs).
+- **Paso 2 (zona en Cloudflare): CERRADO.** Zona Free creada, 16 registros verificados
+  por diff contra el export BIND (`zona-cloudflare.txt`). TODO en DNS-only (nube gris):
+  el mail sigue en DonWeb y el switch de NS es neutro. Desvíos intencionales:
+  `autodiscover`/`autoconfig` → `mail` (no al apex). NS asignados:
+  `arushi.ns.cloudflare.com` y `odin.ns.cloudflare.com`.
+- **Paso 3 (cambio de NS en DonWeb): EJECUTADO, esperando propagación.** Facu cargó los
+  NS de Cloudflare el 05/08 ~19:30. Cloudflare quedó en "Waiting for your registrar";
+  avisa por mail al pasar a "Active" (1-2 h típico, tope 24 h).
+
+**Primer paso de la próxima sesión:** verificar desde afuera que la delegación ya
+apunte a `arushi`/`odin` y que la zona esté "Active". Recién entonces **paso 4**:
+Pages → Custom domains → agregar `www.doblegpremoldeados.com.ar` y el apex. Después
+pasos 5-8 de la spec §8 (redirects, HTTPS, gate de verificación de 6 variantes con
+MX/TXT intactos, Search Console).
+
+**OJO:** NO activar "Only allow Cloudflare IPs at origin" ni HSTS todavía; el mail y
+el FTP están DNS-only contra DonWeb.
 
 ## Pendientes que no bloquean
 

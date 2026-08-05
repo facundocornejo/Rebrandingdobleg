@@ -1,0 +1,57 @@
+;;
+;; Domain:     doblegpremoldeados.com.ar.
+;; Exported:   2026-08-05 19:28:15
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+doblegpremoldeados.com.ar	3600	IN	SOA	arushi.ns.cloudflare.com. dns.cloudflare.com. 2053762469 10000 2400 604800 3600
+
+;; NS Records
+doblegpremoldeados.com.ar.	86400	IN	NS	arushi.ns.cloudflare.com.
+doblegpremoldeados.com.ar.	86400	IN	NS	odin.ns.cloudflare.com.
+
+;; A Records
+doblegpremoldeados.com.ar.	1	IN	A	200.58.111.123 ; cf_tags=cf-proxied:false
+ftp.doblegpremoldeados.com.ar.	1	IN	A	200.58.111.123 ; cf_tags=cf-proxied:false
+mail.doblegpremoldeados.com.ar.	1	IN	A	200.58.111.123 ; cf_tags=cf-proxied:false
+mx1.doblegpremoldeados.com.ar.	1	IN	A	200.58.122.206 ; cf_tags=cf-proxied:false
+
+;; AAAA Records
+doblegpremoldeados.com.ar.	1	IN	AAAA	2800:6c0:2::c:287 ; cf_tags=cf-proxied:false
+ftp.doblegpremoldeados.com.ar.	1	IN	AAAA	2800:6c0:2::c:287 ; cf_tags=cf-proxied:false
+mail.doblegpremoldeados.com.ar.	1	IN	AAAA	2800:6c0:2::c:287 ; cf_tags=cf-proxied:false
+
+;; CNAME Records
+autoconfig.doblegpremoldeados.com.ar.	1	IN	CNAME	mail.doblegpremoldeados.com.ar. ; cf_tags=cf-proxied:false
+autodiscover.doblegpremoldeados.com.ar.	1	IN	CNAME	mail.doblegpremoldeados.com.ar. ; cf_tags=cf-proxied:false
+www.doblegpremoldeados.com.ar.	1	IN	CNAME	doblegpremoldeados.com.ar. ; cf_tags=cf-proxied:false
+
+;; MX Records
+doblegpremoldeados.com.ar.	1	IN	MX	0 mail.doblegpremoldeados.com.ar.
+doblegpremoldeados.com.ar.	1	IN	MX	20 mx1.doblegpremoldeados.com.ar.
+
+;; TXT Records
+_dmarc.doblegpremoldeados.com.ar.	1	IN	TXT	"v=DMARC1; p=none"
+doblegpremoldeados.com.ar.	1	IN	TXT	"google-site-verification=BGYggtXYv67J_eE6e1jCTKeGbFke5osbkBsXRT7SP14"
+doblegpremoldeados.com.ar.	1	IN	TXT	"v=spf1 include:comp.hostmar.com -all"
+mail._domainkey.doblegpremoldeados.com.ar.	1	IN	TXT	"v=DKIM1; g=*; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGJf4oXUa4jxkE46prRe5WkicfJnbBfGl9/Rm95GWshiU8ANeKzHAevMLm1CDxLAAgarag9NnwWvAB9UHJ1QPR6Sy0cPc9BFcPNcFjqFWnDI8OSMNKgLJj5VnO4tHuhq7VFTiXHXw8S/wa3+dzauN+5Mcbjrpz51BW0vtoUPaO6cQgcwlThZr1vD0NP/" "yGTi6XC9x5ln6BaIjaICDFEKWGz9W7KSiKrQyHhqTq1k9jFEp6C2zZJPhoDwpLxHXm0O0b/AVxM7roRZZcCYQWRr2wPkypOT5tYU7fJxLsaJtQHlk+h8FYZd6FLNr+PH9L10S/cZKvihMUA4hY/wODYkwwIDAQAB"
