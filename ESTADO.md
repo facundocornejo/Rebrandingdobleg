@@ -4,9 +4,8 @@
 
 ## Dónde está todo
 
-**El sitio está EN LÍNEA:** https://rebrandingdobleg.pages.dev/
-**El dominio real todavía NO apunta acá.** `doblegpremoldeados.com.ar` sigue en DonWeb
-mostrando el sitio viejo.
+**El sitio está EN LÍNEA en el dominio real:** https://www.doblegpremoldeados.com.ar/
+(canónico). El apex, HTTP y `rebrandingdobleg.pages.dev` redirigen ahí con 301.
 
 - Repo: `https://github.com/facundocornejo/Rebrandingdobleg` · rama `main` · 19 commits.
 - Deploy: Cloudflare Pages, build automático desde `main`.
@@ -42,30 +41,33 @@ prueba 2 del form   15/15 OK contra pages.dev
 Lighthouse mobile (contra `astro preview`): **99 / 100 / 100 / 100**.
 LCP 2,2 s · CLS 0,011 · TBT 0 ms · 344 KB en 9 requests · cero terceros.
 
-## Fase 8 — DNS: EN CURSO (pasos 1-3 hechos el 05/08/2026)
+## Fase 8 — DNS: COMPLETADA (05/08/2026)
 
-Todo el detalle en `INVENTARIO-DNS.md`. Estado al cerrar la sesión:
+Todo el detalle en `INVENTARIO-DNS.md`. Cómo quedó:
 
-- **Paso 1 (inventario): CERRADO.** 19 registros relevados desde afuera (DoH doble
-  fuente) y cruzados 1:1 contra el panel de DonWeb. Sin DNSSEC. DKIM verificado por
-  script. Rollback: `ns1/ns2.donweb.com` (= `ns3/ns4.hostmar.com`, mismas IPs).
-- **Paso 2 (zona en Cloudflare): CERRADO.** Zona Free creada, 16 registros verificados
-  por diff contra el export BIND (`zona-cloudflare.txt`). TODO en DNS-only (nube gris):
-  el mail sigue en DonWeb y el switch de NS es neutro. Desvíos intencionales:
-  `autodiscover`/`autoconfig` → `mail` (no al apex). NS asignados:
-  `arushi.ns.cloudflare.com` y `odin.ns.cloudflare.com`.
-- **Paso 3 (cambio de NS en DonWeb): EJECUTADO, esperando propagación.** Facu cargó los
-  NS de Cloudflare el 05/08 ~19:30. Cloudflare quedó en "Waiting for your registrar";
-  avisa por mail al pasar a "Active" (1-2 h típico, tope 24 h).
+- **Pasos 1-3:** inventario cruzado contra DonWeb, zona Free en Cloudflare verificada
+  por diff contra el export BIND (`zona-cloudflare.txt`), NS cambiados en DonWeb.
+  La zona pasó a "Active" el 05/08 ~20:00 (mail de Cloudflare recibido).
+  Rollback disponible: `ns1/ns2.donweb.com` (= `ns3/ns4.hostmar.com`).
+- **Paso 4 (custom domains):** `www.doblegpremoldeados.com.ar` y el apex agregados en
+  Pages, ambos "Active, SSL enabled". Cloudflare reemplazó el A/AAAA viejo del apex
+  por CNAME a `rebrandingdobleg.pages.dev`.
+- **Paso 5 (redirects):** Redirect Rule de zona `apex a www` (template "Redirect from
+  root to WWW", 301, preserva path y query) + Bulk Redirect a nivel cuenta
+  (lista `pagesdevacanonico` + regla) para `pages.dev` → canónico.
+- **Gate final APROBADO con curl (05/08 ~20:45):** las 6 variantes convergen en
+  `https://www.doblegpremoldeados.com.ar/` — http/https × apex/www dan 301 correctos,
+  www https da 200, `pages.dev` da 301 preservando path y query.
+- **Mail verificado intacto vía DoH:** MX (`mail.` y `mx1.`), SPF, DKIM y
+  `google-site-verification` sin cambios; `mail.` sigue resolviendo a DonWeb.
 
-**Primer paso de la próxima sesión:** verificar desde afuera que la delegación ya
-apunte a `arushi`/`odin` y que la zona esté "Active". Recién entonces **paso 4**:
-Pages → Custom domains → agregar `www.doblegpremoldeados.com.ar` y el apex. Después
-pasos 5-8 de la spec §8 (redirects, HTTPS, gate de verificación de 6 variantes con
-MX/TXT intactos, Search Console).
+**Pendientes de la fase (con fecha):**
 
-**OJO:** NO activar "Only allow Cloudflare IPs at origin" ni HSTS todavía; el mail y
-el FTP están DNS-only contra DonWeb.
+- **HSTS: NO activar hasta ~12/08** (regla de la spec §8: una semana de HTTPS estable
+  en apex + www + pages.dev). Tampoco activar "Only allow Cloudflare IPs at origin":
+  el mail y el FTP siguen DNS-only contra DonWeb.
+- **Search Console** (paso final de la spec §8): dar de alta la propiedad del dominio
+  y mandar el sitemap. El TXT `google-site-verification` ya está en la zona.
 
 ## Pendientes que no bloquean
 
