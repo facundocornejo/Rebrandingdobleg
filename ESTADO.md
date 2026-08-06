@@ -66,8 +66,11 @@ Todo el detalle en `INVENTARIO-DNS.md`. Cómo quedó:
 - **HSTS: NO activar hasta ~12/08** (regla de la spec §8: una semana de HTTPS estable
   en apex + www + pages.dev). Tampoco activar "Only allow Cloudflare IPs at origin":
   el mail y el FTP siguen DNS-only contra DonWeb.
-- **Search Console** (paso final de la spec §8): dar de alta la propiedad del dominio
-  y mandar el sitemap. El TXT `google-site-verification` ya está en la zona.
+
+**Search Console: HECHO** (05/08/2026). Propiedad de alta y sitemap enviado
+(`sitemap-index.xml`, verificado 200 con URLs del dominio nuevo). Nota: Cloudflare
+inyecta un bloque gestionado en `robots.txt` que bloquea crawlers de IA; Google
+búsqueda pasa, no afecta SEO.
 
 ## Pendientes que no bloquean
 
